@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Illumination Music</title>
+	</head>
+	<body>
+		<div id="log"></div>
+		<div>
+			<audio src="/music/1.mp3" loop preload="auto" id="music1">
+			<audio src="/music/2.mp3" loop preload="auto" id="music2">
+			<audio src="/music/3.mp3" loop preload="auto" id="music3">
+			<audio src="/music/4.mp3" loop preload="auto" id="music4">
+		</div>
+		<script src="/socket.io/socket.io.js"></script>
+		<script>
+const musics = [];
+for (let i = 1; i <= 4; i++) {
+	musics.push(document.getElementById(`music${i}`));
+}
+
+const logArea = document.getElementById('log');
+function log(text) {
+	const newLog = document.createElement('div');
+	newLog.innerText = text;
+	logArea.appendChild(newLog);
+}
+
+const socket = io();
+socket.on('music', level => {
+	log(`Received: ${level}`);
+	musics.forEach(player => {
+		player.pause();
+	});
+	if (level > 0) {
+		musics[level - 1].currentTime = 0;
+		musics[level - 1].play();
+	}
+});
+		</script>
+	</body>
+</html>
