@@ -1,4 +1,4 @@
-# motion_sensor_illumination
+motion_sensor_illumination
 ======================
 ラズパイでWebサーバ立てて、赤外線の人感センサー使って、動くほどイルミネーションが派手になるやつ。
 
